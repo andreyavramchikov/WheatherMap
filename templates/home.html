@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="{% static "js/app.js" %}"></script>
+    <script src="{% static "js/services/WheatherService.js" %}"></script>
+    <script src="{% static "js/controllers/WheatherController.js" %}"></script>
+    <link rel="stylesheet" type="text/less" media="all" href="{% static 'css/bootstrap-grid.css' %}"/>
+</head>
+<body ng-app="weatherForecast">
+    <div class="container-fluid" ng-controller="WheatherController">
+        <div class="row">
+            <div class="col-xs-1">Date</div>
+            <div class="col-xs-2">Coordinates lat/lon</div>
+            <div class="col-xs-1">Wind Spedd</div>
+            <div class="col-xs-1">Cloudiness</div>
+            <div class="col-xs-1">Pressure</div>
+            <div class="col-xs-1">Description</div>
+        </div>
+        <div class="row" ng-repeat="day in data">
+            <div class="col-xs-1">[[day.today_date]]</div>
+            <div class="col-xs-2">[[day.lat]]/[[day.lon]]</div>
+            <div class="col-xs-1">[[day.wind_speed]]</div>
+            <div class="col-xs-1">[[day.cloudiness]]</div>
+            <div class="col-xs-1">[[day.pressure]]</div>
+            <div class="col-xs-1">[[day.description]]</div>
+        </div>
+    </div>
+</body>
+</html>
