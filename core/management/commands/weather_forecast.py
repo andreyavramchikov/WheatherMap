@@ -8,11 +8,24 @@ from core.models import WeatherForecast
 
 
 class Command(BaseCommand):
+    def add_arguments(self, parser):
+        # Positional arguments
+        parser.add_argument('city', nargs='+', type=str)
+
+        parser.add_argument(
+            '--city',
+            action='store_true',
+            dest='city',
+            default=False,
+            help='Specify city',
+        )
+
     API_16_DAYS_FORECAST_URL = 'http://api.openweathermap.org/data/2.5/forecast/daily?q={}&mode={}&units' \
                                '=metric&cnt={}&appid={}'
 
     def handle(self, *args, **options):
-        query = self.API_16_DAYS_FORECAST_URL.format('London', 'json', '14', settings.WEATHER_MAP_API_KEY)
+        city_name = options['city'][0]
+        query = self.API_16_DAYS_FORECAST_URL.format(city_name, 'json', '14', settings.WEATHER_MAP_API_KEY)
         response = requests.get(query)
         response = json.loads(response.content)
         city = response['city']
@@ -38,7 +51,7 @@ class Command(BaseCommand):
             temperature_night = temp['night']
             temperature_day = temp['day']
             WeatherForecast.objects.create(
-                city=city,
+                city=city_name,
                 lat=lat,
                 lon=lon,
                 today_date=today_date,

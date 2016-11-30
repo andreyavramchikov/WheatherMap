@@ -1,6 +1,6 @@
 'use strict'
 
-var app = angular.module('weatherForecast', []);
+var app = angular.module('weatherForecast', ['chart.js']);
 
 app.config(function ($locationProvider, $httpProvider, $interpolateProvider) {
 

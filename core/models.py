@@ -22,3 +22,6 @@ class WeatherForecast(models.Model):
     temperature_morn = models.CharField(max_length=255, blank=True)
     temperature_night = models.CharField(max_length=255, blank=True)
     temperature_day = models.CharField(max_length=255, blank=True)
+
+    class Meta:
+        unique_together = ('today_date', 'city', )
